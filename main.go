@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/rivo/tview"
+	"math/rand"
+	"time"
 )
 
 const (
@@ -36,13 +38,37 @@ func updateTable(table *tview.Table, gameData game) {
 	}
 }
 
+func pcThinkAndPlay(table *tview.Table) {
+	time.Sleep(1000 * time.Millisecond)
+	status := aiPlay(gameData)
+	app.QueueUpdateDraw(
+		func() {
+			updateTable(table, gameData)
+			statusWidget.SetText(status)
+			table.SetSelectable(true, true)
+		},
+	)
+}
+
 func newFieldTable() (table *tview.Table) {
 	table = tview.NewTable().SetBorders(true)
 	table.SetSelectable(true, true).SetSelectedFunc(
 		func(row int, col int) {
+			status := calcGameState(gameData)
+			if status != Continue {
+				// game is over!
+				statusWidget.SetText("The Game is over")
+				return
+			}
+			if gameData[row][col] != 0 {
+				statusWidget.SetText("Forbidden move! Field already taken!")
+				return
+			}
+			table.SetSelectable(false, false)
 			gameData[row][col] = 2
 			updateTable(table, gameData)
 			statusWidget.SetText("good move!")
+			go pcThinkAndPlay(table)
 		},
 	)
 	table.SetSelectionChangedFunc(
@@ -52,7 +78,7 @@ func newFieldTable() (table *tview.Table) {
 			case Player1, Player2:
 				status = "Field already taken!"
 			default:
-				status = "Are you sure? Press <Enter> to play here..."
+				status = "Press <Enter> to play here..."
 			}
 			if status != "" {
 				statusWidget.SetText(status)
@@ -63,7 +89,9 @@ func newFieldTable() (table *tview.Table) {
 }
 
 func main() {
+	rand.Seed(time.Now().UnixNano())
 	gameData = NewGame()
+	aiPlay(gameData)
 	app = tview.NewApplication()
 	table := newFieldTable()
 	updateTable(table, gameData)
