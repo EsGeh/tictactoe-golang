@@ -18,11 +18,15 @@ func TestNewGame(t *testing.T) {
 }
 
 func TestGameToString(t *testing.T) {
-	game := NewGame()
-	str := fmt.Sprint(game)
-	if str != `|_|_|_|
-|_|_|_|
-|_|_|_|` {
-		t.Fatalf("fmt.Sprint( game ) returned \"%v\"", str)
+	testMap := map[CellValue]string{
+		Empty:   "_",
+		Player1: "X",
+		Player2: "O",
+	}
+	for cellValue, expectedStr := range testMap {
+		resultStr := fmt.Sprint(cellValue)
+		if resultStr != expectedStr {
+			t.Fatalf("fmt.Sprint( %d ) returned \"%v\", but %v \"expected\"", cellValue, resultStr, expectedStr)
+		}
 	}
 }

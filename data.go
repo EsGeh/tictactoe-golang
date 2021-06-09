@@ -25,21 +25,6 @@ func (cell CellValue) String() string {
 	return ret
 }
 
-func (g game) String() string {
-	ret := ""
-	for row_i, row := range g {
-		ret += "|"
-		for _, cell := range row {
-			ret += fmt.Sprint(cell)
-			ret += "|"
-		}
-		if row_i != len(g)-1 {
-			ret += "\n"
-		}
-	}
-	return ret
-}
-
 func NewGame() game {
 	game := make([][]CellValue, 3)
 	for row_i, _ := range game {
