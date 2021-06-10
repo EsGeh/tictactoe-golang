@@ -5,11 +5,11 @@ import (
 )
 
 func aiPlay(
-	gameData game,
+	game game,
 ) (status string) {
 	var nextMove *cellInfo
 	scanAllLines(
-		gameData,
+		game,
 		func(line []cellInfo) bool {
 			player1Counter, player2Counter := 0, 0
 			var freeField cellInfo
@@ -33,7 +33,7 @@ func aiPlay(
 	)
 	if nextMove == nil {
 		scanAllLines(
-			gameData,
+			game,
 			func(line []cellInfo) bool {
 				player1Counter, player2Counter := 0, 0
 				var freeField cellInfo
@@ -60,7 +60,7 @@ func aiPlay(
 		freeDiagonals := make([]cellInfo, 0, 0)
 		for _, row := range []int{0, 2} {
 			for _, col := range []int{0, 2} {
-				if gameData[row][col] == empty {
+				if game[row][col] == empty {
 					freeDiagonals = append(freeDiagonals, cellInfo{row, col, empty})
 				}
 			}
@@ -72,7 +72,7 @@ func aiPlay(
 		}
 	}
 	if nextMove != nil {
-		gameData[nextMove.row][nextMove.col] = 1
+		game[nextMove.row][nextMove.col] = 1
 		return
 	}
 	status = "hmm, I pass..."

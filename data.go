@@ -59,12 +59,12 @@ func NewGame() game {
 	return game
 }
 
-func calcGameState(gameData game) gameState {
+func calcGameState(game game) gameState {
 	// 1. check if someone has won:
 	{
-		state := gameState(continues)
+		gameState := continues
 		scanAllLines(
-			gameData,
+			game,
 			func(line []cellInfo) bool {
 				player1Counter, player2Counter := 0, 0
 				for _, cellInfo := range line {
@@ -76,22 +76,22 @@ func calcGameState(gameData game) gameState {
 					}
 				}
 				if player1Counter == 3 {
-					state = player1Wins
+					gameState = player1Wins
 					return true
 				}
 				if player2Counter == 3 {
-					state = player2Wins
+					gameState = player2Wins
 					return true
 				}
 				return false
 			},
 		)
-		if state == player1Wins || state == player2Wins {
-			return state
+		if gameState == player1Wins || gameState == player2Wins {
+			return gameState
 		}
 	}
 	// 2. check if the game is over?
-	for _, row := range gameData {
+	for _, row := range game {
 		for _, cell := range row {
 			if cell == empty {
 				return continues
@@ -102,11 +102,11 @@ func calcGameState(gameData game) gameState {
 }
 
 func scanAllLines(
-	gameData game,
+	game game,
 	cond func([]cellInfo) (found bool),
 ) {
 	// scan rows
-	for row, line := range gameData {
+	for row, line := range game {
 		lineInfo := make([]cellInfo, 0, 3)
 		for col, cell := range line {
 			lineInfo = append(lineInfo, cellInfo{row, col, cell})
@@ -120,7 +120,7 @@ func scanAllLines(
 	for col := 0; col < 3; col++ {
 		lineInfo := make([]cellInfo, 0, 3)
 		for row := 0; row < 3; row++ {
-			cell := gameData[row][col]
+			cell := game[row][col]
 			lineInfo = append(lineInfo, cellInfo{row, col, cell})
 		}
 		if cond(lineInfo) {
@@ -133,7 +133,7 @@ func scanAllLines(
 		lineInfo := make([]cellInfo, 0, 3)
 		for col := 0; col < 3; col++ {
 			row := col
-			cell := gameData[row][col]
+			cell := game[row][col]
 			lineInfo = append(lineInfo, cellInfo{row, col, cell})
 		}
 		if cond(lineInfo) {
@@ -146,7 +146,7 @@ func scanAllLines(
 		lineInfo := make([]cellInfo, 0, 3)
 		for row := 0; row < 3; row++ {
 			col := 2 - row
-			cell := gameData[row][col]
+			cell := game[row][col]
 			lineInfo = append(lineInfo, cellInfo{row, col, cell})
 		}
 		if cond(lineInfo) {
