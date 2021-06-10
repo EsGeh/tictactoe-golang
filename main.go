@@ -55,7 +55,7 @@ func newFieldTable() (table *tview.Table) {
 	table.SetSelectable(true, true).SetSelectedFunc(
 		func(row int, col int) {
 			status := calcGameState(gameData)
-			if status != Continue {
+			if status != continues {
 				// game is over!
 				statusWidget.SetText("The Game is over")
 				return
@@ -75,7 +75,7 @@ func newFieldTable() (table *tview.Table) {
 		func(row int, col int) {
 			var status = ""
 			switch gameData[row][col] {
-			case Player1, Player2:
+			case player1, player2:
 				status = "Field already taken!"
 			default:
 				status = "Press <Enter> to play here..."

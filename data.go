@@ -2,47 +2,59 @@ package main
 
 import "fmt"
 
-type CellValue int
+type cellValue int
 
 const (
-	Empty = iota
-	Player1
-	Player2
+	empty cellValue = iota
+	player1
+	player2
 )
 
-type game [][]CellValue
+type game [][]cellValue
 
 type cellInfo struct {
 	row, col int
-	value    CellValue
+	value    cellValue
 }
 
 type gameState int
 
 const (
-	Continue = iota
-	Player1Wins
-	Player2Wins
-	GameOver
+	continues gameState = iota
+	player1Wins
+	player2Wins
+	gameOver
 )
 
-func (cell CellValue) String() string {
+func (cell cellValue) String() string {
 	ret := ""
 	switch cell {
-	case Empty:
+	case empty:
 		ret = fmt.Sprint("_")
-	case Player1:
+	case player1:
 		ret = fmt.Sprint("X")
-	case Player2:
+	case player2:
 		ret = fmt.Sprint("O")
 	}
 	return ret
 }
 
+func (gameState gameState) String() string {
+	switch gameState {
+	case player1Wins:
+		return "player1Wins"
+	case player2Wins:
+		return "player2Wins"
+	case gameOver:
+		return "gameOver"
+	}
+	return "continue"
+}
+
 func NewGame() game {
-	game := make([][]CellValue, 3)
+	game := make([][]cellValue, 3)
 	for row, _ := range game {
-		game[row] = make([]CellValue, 3)
+		game[row] = make([]cellValue, 3)
 	}
 	return game
 }
@@ -50,43 +62,43 @@ func NewGame() game {
 func calcGameState(gameData game) gameState {
 	// 1. check if someone has won:
 	{
-		state := gameState(Continue)
+		state := gameState(continues)
 		scanAllLines(
 			gameData,
 			func(line []cellInfo) bool {
-				player1, player2 := 0, 0
+				player1Counter, player2Counter := 0, 0
 				for _, cellInfo := range line {
 					switch cellInfo.value {
-					case Player1:
-						player1++
-					case Player2:
-						player2++
+					case player1:
+						player1Counter++
+					case player2:
+						player2Counter++
 					}
 				}
-				if player1 == 3 {
-					state = Player1Wins
+				if player1Counter == 3 {
+					state = player1Wins
 					return true
 				}
-				if player2 == 3 {
-					state = Player2Wins
+				if player2Counter == 3 {
+					state = player2Wins
 					return true
 				}
 				return false
 			},
 		)
-		if state == Player1Wins || state == Player2Wins {
+		if state == player1Wins || state == player2Wins {
 			return state
 		}
 	}
 	// 2. check if the game is over?
 	for _, row := range gameData {
 		for _, cell := range row {
-			if cell == Empty {
-				return Continue
+			if cell == empty {
+				return continues
 			}
 		}
 	}
-	return GameOver
+	return gameOver
 }
 
 func scanAllLines(

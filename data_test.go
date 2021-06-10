@@ -91,7 +91,7 @@ func TestCalcGameState(t *testing.T) {
 				{0, 0, 0},
 				{0, 0, 0},
 			},
-			Continue,
+			continues,
 		},
 		// player 1 wins:
 		{
@@ -100,7 +100,7 @@ func TestCalcGameState(t *testing.T) {
 				{0, 0, 0},
 				{0, 0, 0},
 			},
-			Player1Wins,
+			player1Wins,
 		},
 		{
 			game{
@@ -108,7 +108,7 @@ func TestCalcGameState(t *testing.T) {
 				{1, 1, 1},
 				{0, 0, 0},
 			},
-			Player1Wins,
+			player1Wins,
 		},
 		{
 			game{
@@ -116,7 +116,7 @@ func TestCalcGameState(t *testing.T) {
 				{0, 0, 0},
 				{1, 1, 1},
 			},
-			Player1Wins,
+			player1Wins,
 		},
 		{
 			game{
@@ -124,7 +124,7 @@ func TestCalcGameState(t *testing.T) {
 				{1, 0, 0},
 				{1, 0, 0},
 			},
-			Player1Wins,
+			player1Wins,
 		},
 		{
 			game{
@@ -132,7 +132,7 @@ func TestCalcGameState(t *testing.T) {
 				{0, 1, 0},
 				{0, 1, 0},
 			},
-			Player1Wins,
+			player1Wins,
 		},
 		{
 			game{
@@ -140,7 +140,7 @@ func TestCalcGameState(t *testing.T) {
 				{0, 0, 1},
 				{0, 0, 1},
 			},
-			Player1Wins,
+			player1Wins,
 		},
 		{
 			game{
@@ -148,7 +148,7 @@ func TestCalcGameState(t *testing.T) {
 				{0, 0, 0},
 				{0, 0, 0},
 			},
-			Player1Wins,
+			player1Wins,
 		},
 		{
 			game{
@@ -156,7 +156,7 @@ func TestCalcGameState(t *testing.T) {
 				{1, 1, 1},
 				{0, 0, 0},
 			},
-			Player1Wins,
+			player1Wins,
 		},
 		{
 			game{
@@ -164,7 +164,7 @@ func TestCalcGameState(t *testing.T) {
 				{0, 0, 0},
 				{1, 1, 1},
 			},
-			Player1Wins,
+			player1Wins,
 		},
 		{
 			game{
@@ -172,7 +172,7 @@ func TestCalcGameState(t *testing.T) {
 				{1, 0, 0},
 				{1, 0, 0},
 			},
-			Player1Wins,
+			player1Wins,
 		},
 		{
 			game{
@@ -180,7 +180,7 @@ func TestCalcGameState(t *testing.T) {
 				{0, 1, 0},
 				{0, 1, 0},
 			},
-			Player1Wins,
+			player1Wins,
 		},
 		{
 			game{
@@ -188,7 +188,7 @@ func TestCalcGameState(t *testing.T) {
 				{0, 0, 1},
 				{0, 0, 1},
 			},
-			Player1Wins,
+			player1Wins,
 		},
 		{
 			game{
@@ -196,7 +196,7 @@ func TestCalcGameState(t *testing.T) {
 				{0, 1, 0},
 				{0, 0, 1},
 			},
-			Player1Wins,
+			player1Wins,
 		},
 		{
 			game{
@@ -204,7 +204,7 @@ func TestCalcGameState(t *testing.T) {
 				{0, 1, 0},
 				{1, 0, 0},
 			},
-			Player1Wins,
+			player1Wins,
 		},
 		// player 2 wins:
 		{
@@ -213,7 +213,7 @@ func TestCalcGameState(t *testing.T) {
 				{0, 0, 0},
 				{0, 0, 0},
 			},
-			Player2Wins,
+			player2Wins,
 		},
 		{
 			game{
@@ -221,7 +221,7 @@ func TestCalcGameState(t *testing.T) {
 				{2, 2, 2},
 				{0, 0, 0},
 			},
-			Player2Wins,
+			player2Wins,
 		},
 		{
 			game{
@@ -229,7 +229,7 @@ func TestCalcGameState(t *testing.T) {
 				{0, 0, 0},
 				{2, 2, 2},
 			},
-			Player2Wins,
+			player2Wins,
 		},
 		{
 			game{
@@ -237,7 +237,7 @@ func TestCalcGameState(t *testing.T) {
 				{2, 0, 0},
 				{2, 0, 0},
 			},
-			Player2Wins,
+			player2Wins,
 		},
 		{
 			game{
@@ -245,7 +245,7 @@ func TestCalcGameState(t *testing.T) {
 				{0, 2, 0},
 				{0, 2, 0},
 			},
-			Player2Wins,
+			player2Wins,
 		},
 		{
 			game{
@@ -253,7 +253,7 @@ func TestCalcGameState(t *testing.T) {
 				{0, 0, 2},
 				{0, 0, 2},
 			},
-			Player2Wins,
+			player2Wins,
 		},
 		{
 			game{
@@ -261,7 +261,7 @@ func TestCalcGameState(t *testing.T) {
 				{0, 2, 0},
 				{0, 0, 2},
 			},
-			Player2Wins,
+			player2Wins,
 		},
 		{
 			game{
@@ -269,7 +269,7 @@ func TestCalcGameState(t *testing.T) {
 				{0, 2, 0},
 				{2, 0, 0},
 			},
-			Player2Wins,
+			player2Wins,
 		},
 		// game over:
 		{
@@ -278,7 +278,7 @@ func TestCalcGameState(t *testing.T) {
 				{1, 2, 2},
 				{2, 1, 1},
 			},
-			GameOver,
+			gameOver,
 		},
 		// continue:
 		{
@@ -287,7 +287,7 @@ func TestCalcGameState(t *testing.T) {
 				{1, 2, 2},
 				{2, 1, 1},
 			},
-			Continue,
+			continues,
 		},
 		{
 			game{
@@ -295,7 +295,7 @@ func TestCalcGameState(t *testing.T) {
 				{1, 2, 2},
 				{2, 1, 1},
 			},
-			Continue,
+			continues,
 		},
 	}
 	for _, testEntry := range testMap {
