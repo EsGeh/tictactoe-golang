@@ -3,6 +3,8 @@
 This is mainly intended as an exercise in programming with [Go](https://golang.org/).
 The implementation is still incomplete. This is work in progress.
 
+![Screenshot of the Game](screenshot.png)
+
 ## Prerequisits
 
 - [Install Git](https://git-scm.com/)
